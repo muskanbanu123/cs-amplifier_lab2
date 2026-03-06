@@ -34,10 +34,6 @@ The circuit consists of:
 • Output node at the drain
 
 Configuration: **Common Source Amplifier with PMOS Active Load**
-
-
-
-
 Input signal is applied to the NMOS gate.
 
 ---
@@ -242,6 +238,8 @@ W2 = 39.05 µm
 
 # 7. DC Operating Point (Simulation)
 
+![CS Amplifier Circuit](lab32.png)
+
 | Case                         | W1 (µm) | W2 (µm) | ID (µA) | Vout (V) |
 |------------------------------|--------|--------|--------|---------|
 | Initial Theoretical Design   | 16.48  | 39.05  | 145    | 0.14    |
@@ -277,9 +275,9 @@ Hence, the simulated current is slightly higher than the theoretical value.
 
 ---
 
-# 8. Transient Analysis
-
-From the transient waveform:
+# 8. Transient Analysis:
+From the input transient waveform:
+![CS Amplifier Circuit](lab33.png)
 
 VH = 0.128 V  
 VL = 0.109 V  
@@ -292,6 +290,7 @@ Vin(pp) = 0.128 − 0.109
 Vin(pp) = 0.019 V  
 
 From the output waveform:
+![CS Amplifier Circuit](lab34.png)
 
 VoutH = 0.948 V  
 VoutL = 0.713 V  
@@ -381,58 +380,33 @@ GBP | Ideal | 1.41 GHz |
 # 13. Reasons for Difference Between Theoretical and Practical Values
 
 The theoretical calculations assume **ideal MOSFET behavior**, while LTSpice simulation uses **realistic transistor models**. The main reasons for the difference are:
-
-### 1. Short Channel Effects
-
-In 180 nm technology, transistors experience short channel effects which reduce current compared to ideal equations.
-
----
+ 1. Short Channel Effects
+In 180 nm technology, transistors experience short channel effects which reduce current compared to ideal equations
 
 ### 2. Mobility Degradation
-
 Carrier mobility decreases at high electric fields, reducing drain current.
 
----
-
 ### 3. Channel Length Modulation
-
 In practical devices, the drain current increases with VDS, reducing output resistance.
-
 This decreases the gain.
-
----
-
 ### 4. Parasitic Capacitances
-
 MOSFET includes internal capacitances such as:
-
 Gate-source capacitance  
 Gate-drain capacitance  
 Junction capacitances  
-
 These affect the AC response and bandwidth.
-
----
-
 ### 5. Non-Ideal MOSFET Models
-
 LTSpice uses **BSIM transistor models** which include many second-order effects ignored in hand calculations.
-
----
-
 ### 6. Process Variations
-
 Fabrication variations cause changes in:
-
 Threshold voltage  
 Mobility  
 Oxide thickness  
-
 This causes deviations from theoretical predictions.
-
 ---
 
-# 9. AC Analysis
+# 9. AC Analysis:
+![CS Amplifier Circuit](lab35.png)
 
 From AC simulation:
 

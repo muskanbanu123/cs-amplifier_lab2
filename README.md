@@ -1101,34 +1101,25 @@ The circuit shows a voltage gain of **12.2 V/V (21.72 dB)** with a bandwidth of 
 
 Comparison of Three Amplifier Configurations
 
+Comparison of Three Common Source Amplifier Configurations
 
-| Parameter            | Source Degenerated Amp    | Diode Connected Amp       | Cascode Amplifier         |
-
-| Circuit Structure    | NMOS with source resistor | NMOS with diode-connected | Two stacked transistors   |
-|                      | for negative feedback     | load transistor           | to increase output        |
-|                      |                           |                           | resistance                |
-
-| Voltage Gain         | Low                       | Moderate                  | Highest                   |
-| (Observed)           | ≈ 12.36 V/V               | ≈ 12.2 V/V                | Highest among three       |
-|                      | (21.84 dB)                | (21.72 dB)                | configurations            |
-
-| Bandwidth            | Moderate                  | High                      | Lower than diode load     |
-|                      |                           |                           | due to stacked devices    |
-
-| Output Resistance    | Low (due to source        | Moderate                  | Very High                 |
-|                      | degeneration)             |                           |                            |
-
-| Linearity            | High because of           | Moderate                  | Moderate                  |
-|                      | negative feedback         |                           |                            |
-
-| Gain-Bandwidth       | Moderate                  | Higher than source        | High gain but reduced     |
-| Product              |                           | degenerated amplifier     | bandwidth trade-off       |
-
-| Main Advantage       | Improved stability        | Simple design and         | Very high gain and        |
-|                      | and linearity             | good bandwidth            | large output resistance   |
-
-| Main Disadvantage    | Reduced gain              | Limited gain due to       | More complex design       |
-|                      |                           | diode load                | and higher voltage headroom|
++----------------------+------------------------------+------------------------------+---------------------------+
+| Parameter            | Source Degenerated Amplifier | Diode Connected Amplifier    | Cascode Amplifier         |
++----------------------+------------------------------+------------------------------+---------------------------+
+| Circuit Structure    | NMOS with source resistor    | NMOS with diode-connected    | Two stacked MOSFETs       |
+|                      | providing negative feedback  | load transistor              | to increase output        |
+|                      |                              |                              | resistance                |
++----------------------+------------------------------+------------------------------+---------------------------+
+| Voltage Gain         | 12.36 V/V                    | 12.2 V/V                     | Highest theoretically     |
+| (Observed)           | (21.84 dB)                   | (21.72 dB)                   |                           |
++----------------------+------------------------------+------------------------------+---------------------------+
+| Bandwidth            | Moderate                     | High                         | Lower due to stacked      |
+|                      |                              |                              | devices                   |
++----------------------+------------------------------+------------------------------+---------------------------+
+| Output Resistance    | Low                          | Moderate                     | Very High                 |
++----------------------+------------------------------+------------------------------+---------------------------+
+| Linearity / Stability| High due to feedback        | Moderate                     | Moderate                  |
++----------------------+------------------------------+------------------------------+---------------------------+
 
 
 Comparison of Gain Values

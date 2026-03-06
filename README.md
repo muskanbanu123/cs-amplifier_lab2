@@ -1102,31 +1102,19 @@ The circuit shows a voltage gain of **12.2 V/V (21.72 dB)** with a bandwidth of 
 Comparison of Three Amplifier Configurations
 
 Comparison of Three Common Source Amplifier Configurations
-
-+----------------------+------------------------------+------------------------------+---------------------------+
-| Parameter            | Source Degenerated Amplifier | Diode Connected Amplifier    | Cascode Amplifier         |
-+----------------------+------------------------------+------------------------------+---------------------------+
-| Circuit Structure    | NMOS with source resistor    | NMOS with diode-connected    | Two stacked MOSFETs       |
-|                      | providing negative feedback  | load transistor              | to increase output        |
-|                      |                              |                              | resistance                |
-+----------------------+------------------------------+------------------------------+---------------------------+
-| Voltage Gain         | 12.36 V/V                    | 12.2 V/V                     | Highest theoretically     |
-| (Observed)           | (21.84 dB)                   | (21.72 dB)                   |                           |
-+----------------------+------------------------------+------------------------------+---------------------------+
-| Bandwidth            | Moderate                     | High                         | Lower due to stacked      |
-|                      |                              |                              | devices                   |
-+----------------------+------------------------------+------------------------------+---------------------------+
-| Output Resistance    | Low                          | Moderate                     | Very High                 |
-+----------------------+------------------------------+------------------------------+---------------------------+
-| Linearity / Stability| High due to feedback        | Moderate                     | Moderate                  |
-+----------------------+------------------------------+------------------------------+---------------------------+
-
+| Parameter | Source Degenerated Amplifier | Diode Connected Amplifier | Cascode Amplifier |
+|-----------|------------------------------|---------------------------|-------------------|
+| Circuit Structure | NMOS with source resistor providing negative feedback | NMOS with diode-connected load transistor | Two stacked MOSFETs to increase output resistance |
+| Voltage Gain (Observed) | 12.36 V/V (21.84 dB) | 12.2 V/V (21.72 dB) | Highest theoretically |
+| Bandwidth | Moderate | High | Lower due to stacked devices |
+| Output Resistance | Low | Moderate | Very High |
+| Linearity / Stability | High due to feedback | Moderate | Moderate |
 
 Comparison of Gain Values
 
 
 | Amplifier Type            | Gain (dB) |
-
+|---------------------------|-----------|
 | Source Degenerated Amp    | 21.84 dB  |
 | Cascode Amplifier         | 9.60 dB   |
 | Diode Connected Amplifier | 21.72 dB  |

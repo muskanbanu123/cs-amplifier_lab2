@@ -23,6 +23,7 @@ The objective is to:
 ---
 
 # 2. Circuit Description
+![CS Amplifier Circuit](lab31.png)
 
 The circuit consists of:
 

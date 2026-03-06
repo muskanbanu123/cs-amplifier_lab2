@@ -34,19 +34,8 @@ The circuit consists of:
 
 Configuration: **Common Source Amplifier with PMOS Active Load**
 
-```
-           VDD
-            |
-          PMOS
-            |
-            |------ Vout
-            |
-           NMOS
-            |
-           Rs
-            |
-           GND
-```
+
+
 
 Input signal is applied to the NMOS gate.
 
@@ -204,6 +193,25 @@ Assume
 
 VTP = 0.39 V  
 VOV = 0.25 V  
+### Reason for Choosing Vov = 0.25 V
+
+The overdrive voltage (Vov = VGS − VTH) was assumed as **0.25 V** to properly bias the MOSFET in the **saturation region** while operating under a **low supply voltage (VDD = 1.2 V)**.
+
+Choosing Vov involves a trade-off:
+
+1. **Ensures Saturation Operation**  
+   A moderate Vov keeps the MOSFET safely in saturation where the amplifier provides stable gain.
+
+2. **Low Power Operation**  
+   Smaller Vov reduces the required drain current, helping satisfy the given power constraint.
+
+3. **Improved Transconductance Efficiency**  
+   For analog amplifiers, Vov is typically chosen in the range **0.2 V – 0.3 V** to achieve good transconductance (gm/ID efficiency).
+
+4. **Headroom Requirement**  
+   Since the supply voltage is only **1.2 V**, using a small Vov ensures enough voltage headroom for other nodes in the circuit.
+
+Therefore, **Vov = 0.25 V** is chosen as a practical design assumption for low-voltage CMOS amplifier design
 
 VSG = VOV + |VTP|
 
@@ -233,86 +241,82 @@ W2 = 39.05 µm
 
 # 7. DC Operating Point (Simulation)
 
-After LTSpice simulation transistor sizes were adjusted to:
+| Case                         | W1 (µm) | W2 (µm) | ID (µA) | Vout (V) |
+|------------------------------|--------|--------|--------|---------|
+| Initial Theoretical Design   | 16.48  | 39.05  | 145    | 0.14    |
+| After Width Adjustment       | 75     | 95     | 323.33 | 0.83    |
+### Difference Between Theoretical and Practical Current
 
-W1 = 75 µm  
-W2 = 95 µm  
+The theoretical drain current was designed as:
 
-Measured values:
+ID(theoretical) = 300 µA
 
-ID1 = 323.33 µA  
-ID2 = 323.33 µA  
+From LTSpice simulation:
 
-Vout = 0.83 V
+ID(practical) = 323.33 µA
+
+Difference:
+
+ΔID = 323.33 µA − 300 µA = 23.33 µA
+
+Percentage Error:
+
+Error % = (23.33 / 300) × 100 ≈ 7.77 %
+
+### Reason for the Difference
+
+The difference occurs because theoretical calculations use simplified MOSFET equations, while LTSpice uses practical transistor models. The main reasons are:
+
+1. **Channel Length Modulation (λ)** increases the drain current.
+2. **Mobility degradation and short-channel effects** included in the simulator.
+3. **Approximation of parameters** like VTH and VOV during hand calculations.
+4. **Device sizing adjustments** during simulation (larger W increases current).
+
+Hence, the simulated current is slightly higher than the theoretical value.
 
 ---
 
 # 8. Transient Analysis
 
-Measured values from simulation:
+From the transient waveform:
 
-Vin(pp) = 0.019 V
+VH = 0.128 V  
+VL = 0.109 V  
+input peak-to-peak voltage
 
-Vout(pp) = 0.235 V
+Vin(pp) = VH − VL  
 
-Voltage gain:
+Vin(pp) = 0.128 − 0.109  
 
-Av = Vout / Vin
+Vin(pp) = 0.019 V  
+
+From the output waveform:
+
+VoutH = 0.948 V  
+VoutL = 0.713 V  
+
+* output peak-to-peak voltage
+
+Vout(pp) = VoutH − VoutL  
+
+Vout(pp) = 0.948 − 0.713  
+
+Vout(pp) = 0.235 V  
+
+*voltage gain
+
+Av = Vout(pp) / Vin(pp)
 
 Av = 0.235 / 0.019
 
-Av = 12.36 V/V
-
----
-
-## Gain in dB
+Av = 12.36 V/V  
+* Gain to decibels
 
 Av(dB) = 20 log(Av)
 
 Av(dB) = 20 log(12.36)
 
 Av(dB) = 21.84 dB
-
----
-
-# 9. AC Analysis
-
-From AC simulation:
-
-Av ≈ 21 dB
-
-Upper cutoff frequency:
-
-FH = 125.69 MHz
-
-Lower cutoff frequency:
-
-FL ≈ 0
-
-Bandwidth:
-
-BW = FH − FL
-
-BW = 125.69 MHz
-
----
-
-# 10. Gain Bandwidth Product
-
-GBP = Av × BW
-
-Convert gain to linear:
-
-Av = 10^(21/20)
-
-Av = 11.22
-
-GBP = 11.22 × 125.69 MHz
-
-GBP ≈ 1.41 GHz
-
----
-
 # 11. Theoretical Gain Calculation
 
 Given
@@ -373,9 +377,6 @@ Av ≈ 24.24 dB
 Gain | 24.24 dB | 21.52 dB |
 Bandwidth | Ideal | 125 MHz |
 GBP | Ideal | 1.41 GHz |
-
----
-
 # 13. Reasons for Difference Between Theoretical and Practical Values
 
 The theoretical calculations assume **ideal MOSFET behavior**, while LTSpice simulation uses **realistic transistor models**. The main reasons for the difference are:
@@ -430,24 +431,46 @@ This causes deviations from theoretical predictions.
 
 ---
 
-# 14. Conclusion
+# 9. AC Analysis
 
-A CMOS amplifier using **TSMC 180 nm technology** was successfully designed and simulated in LTSpice.
+From AC simulation:
 
-Results obtained from simulation:
+Av ≈ 21 dB
 
-Gain ≈ 21.5 dB  
-Bandwidth ≈ 125 MHz  
-Gain Bandwidth Product ≈ 1.41 GHz  
+Upper cutoff frequency:
 
-The practical gain is slightly lower than the theoretical value due to **short channel effects, parasitic capacitances, mobility degradation, and channel length modulation**.
+fH = 125.69 MHz
 
-The experiment demonstrates the importance of **circuit simulation tools** in verifying analog circuit performance.
+Lower cutoff frequency:
+
+FL ≈ 0
+
+Bandwidth:
+
+BW = FH − FL
+
+BW = 125.69 MHz
 
 ---
 
-# Tools Used
+# 10. Gain Bandwidth Product
 
-LTSpice  
-TSMC 180nm MOSFET Models  
-Manual Design Calculations
+GBP = Av × BW
+
+Convert gain to linear:
+
+Av = 10^(21/20)
+
+Av = 11.22
+
+GBP = 11.22 × 125.69 MHz
+
+GBP ≈ 1.41 GHz
+
+Unity gain bandwith:
+UGB=2.05GHz
+
+---
+
+
+

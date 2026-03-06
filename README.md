@@ -781,4 +781,317 @@ UGB ≈ 0.30 GHz
 
 A cascode amplifier was designed using CMOS technology with a supply voltage of 1.2 V. The circuit was biased to operate with a current close to 300 µA. The amplifier achieved a voltage gain of approximately **3 V/V** with a bandwidth of **104.48 MHz**. The cascode configuration improved gain and frequency performance compared to a simple common source amplifier.
 
+# Diode Connected Amplifier:
+CIRCUIT DIAGRAM:
+![CS Amplifier Circuit](lab311.png)
+
+
+## Aim
+To design and analyze a diode connected MOS amplifier and obtain the DC operating point, transient gain and AC characteristics.
+
+---
+
+# Theory
+
+A diode connected MOS transistor is formed when the **gate and drain terminals are shorted together**.  
+In this condition,
+
+VGS = VDS
+
+Since the transistor always satisfies the saturation condition,
+
+VDS ≥ VGS − VTH
+
+the device behaves like a **nonlinear load**.
+
+The small signal gain of the diode connected amplifier is
+
+Av = −gm1 ro2 / (1 + gm1 ro3)
+
+---
+
+# Design Specifications
+
+Supply Voltage
+
+VDD = 1.8 V
+
+Power constraint
+
+P ≤ VDD × ID
+
+Drain current
+
+ID = 300 µA
+
+Assume overdrive voltage
+
+VOV = 0.25 V
+
+Threshold voltage
+
+VTH ≈ 0.366 V
+
+---
+
+# Design Calculations
+
+## 1. Diode Connected Transistor (M3)
+
+Since it is diode connected,
+
+VGS3 = VDS3
+
+Overdrive relation
+
+VOV = VGS − VTH
+
+Therefore
+
+VGS3 = VOV + VTH
+
+VGS3 = 0.25 + 0.366
+
+VGS3 = 0.61 V
+
+Thus
+
+VDS3 = 0.61 V
+
+---
+
+## 2. PMOS Transistor (M2)
+
+VSG2 = VOV + |VTP|
+
+VSG2 = 0.25 + 0.39
+
+VSG2 = 0.64 V
+
+Bias voltage
+
+VB1 = VDD − VSG2
+
+VB1 = 1.2 − 0.64
+
+VB1 = 0.56 V
+
+---
+
+## 3. NMOS Transistor (M1)
+
+Overdrive relation
+
+VOV = VGS − VTH
+
+Therefore
+
+VGS1 = VOV + VTH
+
+VGS1 = 0.25 + 0.366
+
+VGS1 = 0.61 V
+
+Source voltage
+
+VS1 = 0.61 V
+
+Input voltage
+
+Vin = VGS1 + VS1
+
+Vin = 0.61 + 0.61
+
+Vin = 1.22 V
+
+---
+
+## 4. Output Voltage
+
+Using KVL
+
+VDD = VSD3 + VDS1 + VSD2
+
+1.2 = 0.61 + 0.25 + VDS2
+
+1.2 = 0.86 + VDS2
+
+VDS2 = 0.34 V
+
+Output voltage
+
+Vout = VDS1 + VDS3
+
+Vout = 0.25 + 0.61
+
+Vout = 0.86 V
+
+---
+
+# Transistor Sizing
+
+Using MOS current equation
+
+ID = (1/2) kn (W/L) (VOV)²
+
+Calculated widths
+
+W1 = 16.48 µm
+
+W2 = 16.48 µm
+
+W3 = 39.05 µm
+
+---
+
+# DC Analysis Results:
+![CS Amplifier Circuit](lab312.png)
+
+After simulation tuning
+
+W1 = 37.5 µm
+
+W2 = 37.5 µm
+
+W3 = 90 µm
+
+Drain current
+
+ID = 303 µA
+
+Output voltage
+
+Vout = 0.866 V
+
+---
+
+# Transient Analysis
+
+Input signal:
+![CS Amplifier Circuit](lab313.png)
+
+Vin = 1.22 V
+
+Measured output levels:
+![CS Amplifier Circuit](lab314.png)
+
+VH = 930.2 mV
+
+VL = 807.873 mV
+
+Output peak to peak
+
+Vout(pp) = VH − VL
+
+Vout(pp) = 0.122 V
+
+Input peak to peak
+
+Vin(pp) = 1.22 − 1.21
+
+Vin(pp) = 0.01 V
+
+Voltage gain
+
+Av = Vout(pp) / Vin(pp)
+
+Av = 0.122 / 0.01
+
+Av = 12.2 V/V
+
+Gain in dB
+
+Av(dB) = 20 log (Av)
+
+Av = 21.72 dB
+# Theoretical Gain Calculation
+
+The small signal voltage gain of the diode connected amplifier is given by
+
+Av = -gm1 ro2 / (1 + gm1/gm3)
+
+Substituting the calculated values,
+
+Av ≈ 39.99 V/V
+
+Gain in dB:
+
+Av(dB) = 20 log10(Av)
+
+Av(dB) = 20 log10(39.99)
+
+Av(dB) ≈ 32.03 dB
+
+Thus the theoretical voltage gain is approximately **39.99 V/V (32.03 dB)**.
++-------------------+------------+-----------+
+| Type              | Gain (V/V) | Gain (dB) |
++-------------------+------------+-----------+
+| Theoretical Gain  | 39.99 V/V  | 32.03 dB  |
+| Transient Gain    | 12.2 V/V   | 21.72 dB  |
+| AC Gain           |     -      | 22.37 dB  |
++-------------------+------------+-----------+
+Reason for Difference
+Channel length modulation reduces output resistance.
+Parasitic capacitances affect gain in simulation.
+Second-order effects in BSIM model are ignored in hand calculations.
+Bias point shift after sizing adjustment also changes � and �.
+
+---
+
+# AC Analysis:
+![CS Amplifier Circuit](lab315.png)
+
+
+Midband gain
+
+Av = 22.37 dB
+
+3 dB gain
+
+Av(3dB) = 22.37 − 3
+
+Av(3dB) = 19.37 dB
+
+Upper cutoff frequency
+
+fH = 251.57 MHz
+
+Bandwidth
+
+BW = fH − fL
+
+BW = 251.57 MHz
+
+Gain Bandwidth Product
+
+GBP = Av × BW
+
+Av (linear) = 10^(22.37/20)
+
+Av = 13.13
+
+GBP = 13.13 × 251.57 MHz
+
+GBP ≈ 3.3 GHz
+
+Unity Gain Bandwidth
+
+UGB = 3.95 GHz
+
+---
+
+# Reason for Difference Between Theoretical and Practical Gain
+
+1. Channel length modulation.
+2. Parasitic capacitances (Cgs, Cgd).
+3. Non-ideal transistor models used in simulation.
+4. Device parameter variations.
+
+---
+
+# Result
+
+The diode connected MOS amplifier was successfully designed and analyzed.  
+The circuit shows a voltage gain of **12.2 V/V (21.72 dB)** with a bandwidth of **251.57 MHz** and a gain bandwidth product of **3.3 GHz**.
+
 

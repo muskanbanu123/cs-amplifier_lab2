@@ -1028,13 +1028,13 @@ Av(dB) = 20 log10(39.99)
 Av(dB) ≈ 32.03 dB
 
 Thus the theoretical voltage gain is approximately **39.99 V/V (32.03 dB)**.
-+-------------------+------------+-----------+
+
 | Type              | Gain (V/V) | Gain (dB) |
-+-------------------+------------+-----------+
+
 | Theoretical Gain  | 39.99 V/V  | 32.03 dB  |
 | Transient Gain    | 12.2 V/V   | 21.72 dB  |
 | AC Gain           |     -      | 22.37 dB  |
-+-------------------+------------+-----------+
+
 Reason for Difference
 Channel length modulation reduces output resistance.
 Parasitic capacitances affect gain in simulation.
@@ -1101,45 +1101,45 @@ The circuit shows a voltage gain of **12.2 V/V (21.72 dB)** with a bandwidth of 
 
 Comparison of Three Amplifier Configurations
 
-+----------------------+---------------------------+---------------------------+---------------------------+
+
 | Parameter            | Source Degenerated Amp    | Diode Connected Amp       | Cascode Amplifier         |
-+----------------------+---------------------------+---------------------------+---------------------------+
+
 | Circuit Structure    | NMOS with source resistor | NMOS with diode-connected | Two stacked transistors   |
 |                      | for negative feedback     | load transistor           | to increase output        |
 |                      |                           |                           | resistance                |
-+----------------------+---------------------------+---------------------------+---------------------------+
+
 | Voltage Gain         | Low                       | Moderate                  | Highest                   |
 | (Observed)           | ≈ 12.36 V/V               | ≈ 12.2 V/V                | Highest among three       |
 |                      | (21.84 dB)                | (21.72 dB)                | configurations            |
-+----------------------+---------------------------+---------------------------+---------------------------+
+
 | Bandwidth            | Moderate                  | High                      | Lower than diode load     |
 |                      |                           |                           | due to stacked devices    |
-+----------------------+---------------------------+---------------------------+---------------------------+
+
 | Output Resistance    | Low (due to source        | Moderate                  | Very High                 |
 |                      | degeneration)             |                           |                            |
-+----------------------+---------------------------+---------------------------+---------------------------+
+
 | Linearity            | High because of           | Moderate                  | Moderate                  |
 |                      | negative feedback         |                           |                            |
-+----------------------+---------------------------+---------------------------+---------------------------+
+
 | Gain-Bandwidth       | Moderate                  | Higher than source        | High gain but reduced     |
 | Product              |                           | degenerated amplifier     | bandwidth trade-off       |
-+----------------------+---------------------------+---------------------------+---------------------------+
+
 | Main Advantage       | Improved stability        | Simple design and         | Very high gain and        |
 |                      | and linearity             | good bandwidth            | large output resistance   |
-+----------------------+---------------------------+---------------------------+---------------------------+
+
 | Main Disadvantage    | Reduced gain              | Limited gain due to       | More complex design       |
 |                      |                           | diode load                | and higher voltage headroom|
-+----------------------+---------------------------+---------------------------+---------------------------+
+
 
 Comparison of Gain Values
 
-+---------------------------+-----------+
+
 | Amplifier Type            | Gain (dB) |
-+---------------------------+-----------+
+
 | Source Degenerated Amp    | 21.84 dB  |
 | Cascode Amplifier         | 9.60 dB   |
 | Diode Connected Amplifier | 21.72 dB  |
-+---------------------------+-----------+
+
 
 Reason for Lower Gain in Cascode Amplifier
 

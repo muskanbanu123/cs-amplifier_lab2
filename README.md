@@ -446,6 +446,339 @@ Unity gain bandwith:
 UGB=2.05GHz
 
 ---
+# Cascode Amplifier Design and Analysis
 
+CIRCUIT DIAGRAM:
+![CS Amplifier Circuit](lab36.png)
+
+# 1. Theory
+
+A **Cascode amplifier** is a two-stage amplifier formed by cascading a **common source amplifier** with a **common gate amplifier**. The cascode structure significantly improves the **voltage gain, bandwidth, and output resistance** compared to a single transistor amplifier.
+
+In this configuration:
+
+- **M1** acts as the **input common-source transistor**
+- **M2** acts as the **cascode transistor**
+- **M3** acts as the **current source transistor**
+
+Advantages of a Cascode Amplifier:
+
+• High voltage gain  
+• High output resistance  
+• Reduced Miller capacitance  
+• Improved frequency response  
+• Better isolation between input and output  
+
+The gain of a cascode amplifier can be approximated as
+
+Av ≈ gm1 × ro1 × gm2 × ro2
+
+where
+
+gm = transconductance  
+ro = output resistance  
+
+---
+
+# 2. Design Specifications
+
+| Parameter | Value |
+|-----------|-------|
+| Supply Voltage | 1.2 V |
+| Maximum Current | 300 µA |
+| Technology | CMOS |
+| Assumed Overdrive Voltage | 0.25 V |
+
+---
+
+# 3. Design Steps
+
+## Step 1: Power Constraint
+
+The drain current is limited by the power constraint:
+
+ID ≤ P / VDD
+
+ID ≤ 300 µA
+
+---
+
+## Step 2: Assume Overdrive Voltage
+
+To ensure proper saturation operation:
+
+VOV = 0.25 V
+
+---
+
+## Step 3: Gate-Source Voltage
+
+The gate-source voltage is given by
+
+VGS = VTH + VOV
+
+Given
+
+VTH = 0.366 V
+
+Therefore
+
+VGS = 0.366 + 0.25
+
+VGS = 0.61 V
+
+Thus,
+
+VB1 = 0.61 V
+
+---
+
+## Step 4: Cascode Bias Voltage
+
+For the PMOS transistor:
+
+VOV = VSG − |VTP|
+
+Therefore
+
+VSG = VOV + |VTP|
+
+VSG = 0.25 + 0.39
+
+VSG = 0.64 V
+
+Since
+
+VSG = VS − VG
+
+VS = VDD
+
+VG = VDD − VSG
+
+VG = 1.2 − 0.64
+
+VG = 0.556 V
+
+Therefore
+
+VB2 = 0.556 V
+
+---
+
+## Step 5: Output Voltage
+
+The output voltage is designed around the midpoint for maximum swing.
+
+Vout ≈ VDD / 2
+
+Vout = 1.2 / 2
+
+Vout ≈ 0.6 V
+
+Considering the overdrive voltage,
+
+Vout ≈ 0.75 V
+
+---
+
+# 4. Transistor Sizing
+
+The MOSFET drain current equation is
+
+ID = (1/2) kn' (W/L) (VOV)^2
+
+Using this equation the required transistor widths are calculated.
+
+Initial calculated widths:
+
+W1 = W3 = 16.48 µm  
+W2 = 39.05 µm
+
+**Note:**  
+The detailed derivation and step-by-step calculation for obtaining the transistor width using the MOSFET current equation is the same procedure performed in **Experiment 1**. Hence the same method is used here to determine the device dimensions.
+
+---
+
+# 5. DC Simulation Analysis:
+![CS Amplifier Circuit](lab37.png)
+
+After implementing the circuit in LTSpice, the transistor widths were slightly adjusted to obtain the required bias current.
+
+| Parameter | Value |
+|----------|------|
+| ID | 311 µA |
+| W1 , W3 | 41 µm |
+| W2 | 90 µm |
+| Vout | 0.75 V |
+
+---
+
+# 6. Transient Analysis
+
+### Input Signal:
+![CS Amplifier Circuit](lab38.png)
+
+VH = 819.61 mV  
+VL = 800.33 mV  
+
+Vin(pp) = VH − VL
+
+Vin(pp) = 819.61 − 800.33
+
+Vin(pp) = 19.28 mV
+
+Vin(pp) ≈ 0.0192 V
+
+---
+
+### Output Signal:
+![CS Amplifier Circuit](lab39.png)
+VH = 781.98 mV  
+VL = 723.10 mV  
+
+Vout(pp) = VH − VL
+
+Vout(pp) = 781.98 − 723.10
+
+Vout(pp) = 58.88 mV
+
+Vout(pp) ≈ 0.058 V
+
+---
+
+### Voltage Gain
+
+Av = Vout(pp) / Vin(pp)
+
+Av = 0.058 / 0.0192
+
+Av = 3.02 V/V
+Av =9.60 dB
+# Theoretical Gain Calculation
+
+For a cascode amplifier with source degeneration, the small signal gain is given by
+
+Av = -(gm1 · ro2) / (1 + gm1 · ro3)
+
+Substituting the obtained small signal parameters:
+
+Av = -0.999
+
+Therefore,
+
+|Av| ≈ 1
+
+Converting to decibels,
+
+Av(dB) = 20 log10(|Av|)
+
+Av(dB) = 20 log10(0.999)
+
+Av(dB) = 20 × (-0.000434)
+
+Av(dB) ≈ -0.008 dB
+
+Thus, the **theoretical gain ≈ 1 V/V (≈ 0 dB)**.
+
+---
+
+# Reason for Difference Between Theoretical and Practical Gain
+
+The theoretical and simulated (practical) gain values differ due to several non-ideal factors:
+
+1. **Channel Length Modulation**  
+   In theory, the output resistance is assumed ideal, but in simulation the finite output resistance of MOSFETs reduces the gain.
+
+2. **Parasitic Capacitances**  
+   Gate-source and gate-drain capacitances affect the frequency response and reduce the effective gain.
+
+3. **Biasing Variations**  
+   The theoretical design assumes exact bias voltages, while in simulation the bias point slightly shifts.
+
+4. **Device Parameter Variations**  
+   Mobility degradation and process parameters in the MOS model differ from simplified theoretical assumptions.
+
+5. **Transistor Width Adjustment**  
+   In simulation, transistor widths were modified from the calculated values to achieve the required bias current, which changes the small-signal parameters.
+
+Because of these practical effects, the **simulated gain (~3 V/V)** differs from the **ideal theoretical gain (~1 V/V)**.
+
+---
+
+# 7. AC Analysis:
+![CS Amplifier Circuit](lab310.png)
+
+Measured AC gain:
+
+Av = 9.69 dB
+
+Convert to linear gain:
+
+Av = 10^(9.69 / 20)
+
+Av = 3.05 V/V
+
+---
+
+### 3-dB Gain
+
+Av(3dB) = 6.69 dB
+
+---
+
+### Upper Cutoff Frequency
+
+fH = 104.48 MHz
+
+---
+
+### Bandwidth
+
+BW = fH − fL
+
+Since fL ≈ 0
+
+BW ≈ 104.48 MHz
+
+---
+
+# 8. Gain Bandwidth Product
+
+GBP = Av × BW
+
+GBP = 3.05 × 104.48 MHz
+
+GBP = 318.66 MHz
+
+GBP ≈ 0.318 GHz
+
+---
+
+# 9. Unity Gain Bandwidth
+
+UGB ≈ 302.66 MHz
+
+UGB ≈ 0.30 GHz
+
+---
+
+# 10. Final Results
+
+| Parameter | Value |
+|----------|------|
+| Supply Voltage | 1.2 V |
+| Drain Current | 311 µA |
+| Voltage Gain | 3.02 V/V |
+| AC Gain | 9.69 dB |
+| Bandwidth | 104.48 MHz |
+| Gain Bandwidth Product | 0.318 GHz |
+| Unity Gain Bandwidth | 0.30 GHz |
+| Output Voltage | 0.75 V |
+
+---
+
+# 11. Conclusion
+
+A cascode amplifier was designed using CMOS technology with a supply voltage of 1.2 V. The circuit was biased to operate with a current close to 300 µA. The amplifier achieved a voltage gain of approximately **3 V/V** with a bandwidth of **104.48 MHz**. The cascode configuration improved gain and frequency performance compared to a simple common source amplifier.
 
 

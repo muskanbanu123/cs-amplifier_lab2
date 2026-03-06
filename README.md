@@ -1,9 +1,14 @@
-# cs-amplifier_lab2
-# CMOS Amplifier Design using TSMC 180nm Technology in LTSpice
+# cs-amplifier_Experiment-2
+Name: Muskan Banu
+USN: 4NI24EC084
+Branch: Electronics and Communication Engineering
+Lab Course: Linear Integrated Circuits (BEC456B)
+Tool Used: LTspice
+Technology Library: TSMC 180nm
 
 ## 1. Objective
 
-To design and analyze a CMOS amplifier using **TSMC 180nm technology** in **LTSpice** and verify the theoretical calculations with simulation results.
+Comparative Analysis of Source Degenerated,Cascode and Diode Connected Common Source amplifier using **TSMC 180nm technology** in **LTSpice** and verify the theoretical calculations with simulation results.
 
 ### Given Specifications
 
@@ -1093,5 +1098,113 @@ UGB = 3.95 GHz
 
 The diode connected MOS amplifier was successfully designed and analyzed.  
 The circuit shows a voltage gain of **12.2 V/V (21.72 dB)** with a bandwidth of **251.57 MHz** and a gain bandwidth product of **3.3 GHz**.
+
+Comparison of Three Amplifier Configurations
+
++----------------------+---------------------------+---------------------------+---------------------------+
+| Parameter            | Source Degenerated Amp    | Diode Connected Amp       | Cascode Amplifier         |
++----------------------+---------------------------+---------------------------+---------------------------+
+| Circuit Structure    | NMOS with source resistor | NMOS with diode-connected | Two stacked transistors   |
+|                      | for negative feedback     | load transistor           | to increase output        |
+|                      |                           |                           | resistance                |
++----------------------+---------------------------+---------------------------+---------------------------+
+| Voltage Gain         | Low                       | Moderate                  | Highest                   |
+| (Observed)           | ≈ 12.36 V/V               | ≈ 12.2 V/V                | Highest among three       |
+|                      | (21.84 dB)                | (21.72 dB)                | configurations            |
++----------------------+---------------------------+---------------------------+---------------------------+
+| Bandwidth            | Moderate                  | High                      | Lower than diode load     |
+|                      |                           |                           | due to stacked devices    |
++----------------------+---------------------------+---------------------------+---------------------------+
+| Output Resistance    | Low (due to source        | Moderate                  | Very High                 |
+|                      | degeneration)             |                           |                            |
++----------------------+---------------------------+---------------------------+---------------------------+
+| Linearity            | High because of           | Moderate                  | Moderate                  |
+|                      | negative feedback         |                           |                            |
++----------------------+---------------------------+---------------------------+---------------------------+
+| Gain-Bandwidth       | Moderate                  | Higher than source        | High gain but reduced     |
+| Product              |                           | degenerated amplifier     | bandwidth trade-off       |
++----------------------+---------------------------+---------------------------+---------------------------+
+| Main Advantage       | Improved stability        | Simple design and         | Very high gain and        |
+|                      | and linearity             | good bandwidth            | large output resistance   |
++----------------------+---------------------------+---------------------------+---------------------------+
+| Main Disadvantage    | Reduced gain              | Limited gain due to       | More complex design       |
+|                      |                           | diode load                | and higher voltage headroom|
++----------------------+---------------------------+---------------------------+---------------------------+
+
+Comparison of Gain Values
+
++---------------------------+-----------+
+| Amplifier Type            | Gain (dB) |
++---------------------------+-----------+
+| Source Degenerated Amp    | 21.84 dB  |
+| Cascode Amplifier         | 9.60 dB   |
+| Diode Connected Amplifier | 21.72 dB  |
++---------------------------+-----------+
+
+Reason for Lower Gain in Cascode Amplifier
+
+Ideally, a cascode amplifier should provide the highest gain because the 
+cascode transistor increases the output resistance (ro), which improves 
+the voltage gain.
+
+However, in this experiment the cascode amplifier shows lower gain due to:
+
+1. Limited voltage headroom since two stacked transistors require more
+   supply voltage. This reduces effective signal amplification.
+
+2. Lower effective transconductance (gm) due to the chosen bias current
+   and device sizing.
+
+3. Parasitic capacitances and channel length modulation effects in the
+   simulation, which reduce the overall gain.
+
+Hence, although theoretically the cascode amplifier should provide the
+highest gain, practical design limitations and bias conditions resulted
+in a lower gain in this implementation.
+-----
+Result
+
+The required amplifier configurations were designed and simulated 
+successfully and the gain characteristics were verified.
+-----
+Inference
+
+1. Source Degenerated CS Amplifier
+The source degenerated amplifier provides improved linearity and stability due to
+negative feedback introduced by the source resistor, but the voltage gain is reduced.
+
+2. Cascode Amplifier
+The cascode amplifier theoretically provides very high gain because of increased
+output resistance. However, in this experiment the gain was lower due to limited
+voltage headroom and biasing conditions.
+
+3. Diode Connected Load CS Amplifier
+The diode-connected load amplifier provides moderate gain with simple design
+and good bandwidth, making it suitable for basic amplification stages.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
